@@ -1,0 +1,47 @@
+<%= form_for(@group) do |f| %>
+  <% if @group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul>
+      <% @group.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "İsim" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description, "Açıklama" %><br />
+    <%= f.text_field :description %>
+  </div>
+  
+  
+  
+    	<div class="control-group">
+ 		<%= label_tag :userk, "Gruba Üye Olmayanlar(#{@grubun_uyesi_olmayanlarin_sayisi}) (pasifleri göstermez)", :class => "control-label" %>
+	 <div class="controls">
+ 		<%= select_tag :userk, options_from_collection_for_select(@grubun_uyesi_olmayanlar, :id, :display_name, @userk), { :multiple => true, :size => 10, :style => "width:500px;" } %>
+	 </div>
+	</div>
+	
+		<div class="control-group">
+	 		<%= label_tag :usern, "Grubun Üyeleri(#{@grubun_uyesi_olanlarin_sayisi})", :class => "control-label" %>
+	 <div class="controls">
+ 		<%= select_tag :usern, options_from_collection_for_select(@grubun_uyesi_olanlar, :id, :display_name), { :multiple => true, :size => 10, :style => "width:500px;" } %>
+
+	 </div>
+	 </div>
+  
+  
+  
+  
+  
+  <div class="actions">
+    <%= f.submit "Kaydet" %>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+<h1>Giriş</h1>
+
+<% form_tag(:action => 'send_login') do -%>
+	<p>Kullanıcı: <%= text_field_tag('username', params[:username]) %></p>
+	<p>Şifre: <%= password_field_tag('password') %></p>
+	<%= submit_tag("Giriş Yap") %>
+
+<% end -%>
+
+
+<p id="notice"><%= notice %></p>
+

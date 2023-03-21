@@ -1,0 +1,7 @@
+<h1>Yeni Kişi</h1>
+<% if flash[:notice] -%>
+  <p class='notice'><%=h flash[:notice] %></p>
+<% end -%>
+<%= render 'form' %>
+
+<%#= link_to 'Back', users_path %>

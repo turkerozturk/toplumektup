@@ -1,0 +1,58 @@
+<h1>Görev</h1>
+
+<%= link_to '<i class="icon-list"></i> Görevlere Dön'.html_safe, tasks_path, :class => 'btn' %>
+<% if @task.completed != true %>
+	<%= link_to '<i class="icon-trash"></i> Görevi Sil'.html_safe, @task, :confirm => 'Görev Silinsin mi?', :method => :delete, :class => 'btn' %>
+<% else %>	
+	<h3><%= @task.scheduled_at %> tarihine ait bu görev tamamlandı.</h3>
+<% end %>
+<%= link_to '<i class="icon-question-sign"></i> Kimlere Gitti/Gidecek?'.html_safe, show_recipients_path(@message), :class => 'btn' %>
+
+
+<p id="notice"><%= notice %></p>
+
+
+<table class="table table-bordered table-striped">
+<tr><th>İsim</th><td><%= @task.name %></td></tr>
+<tr><th>Grup</th><td><%= @group.name %></td></tr>
+<tr><th>Mesaj</th><td><%= link_to @message.subject, message_path(@message) %></td></tr>
+<tr><th>Şu tarihten itibaren</th><td><%= @task.scheduled_at %></td></tr>
+<tr><th>Durum</th><td><%= @task.completed %></td></tr>
+<tr><th>Durum Açıklaması</th><td>Şu anda <%= @hour_now %> ile bir saat sonrası zaman aralığındayız ve "<%= @gorev_durum_mesaji %>"</td></tr>
+
+
+
+</table>
+
+
+
+
+
+
+<%= content_for :sag_taraf do %>
+<p></p>
+<h3>"<%= @task.message.subject %>" Görevi Mesajının Alıcılarının Dağılımı</h3>
+
+<p>Dikkat: Aşağıdakilere +3 saat ekleyince Türkiye saatine göre gönderileceği tarih saat elde edilir örneğin saat 23:00de 1 adet kayıt görünüyorsa 3 ekleyince ertesi günün saat ikisi eder doğrusu budur. sonra düzeltilecek. Kuyruk görünümünde bu sıkıntı yok yani zamanlar düzgün kaydediliyor, geriye bunları gönderecek olan scriptin hazırlanıp çalıştırılması kalıyor.</p>
+<% @task_days.each_with_index do |gun,index| %>
+	<h3><%= "#{gun.Tarih} (#{gun.Adet})" %></h3>
+	<table class="table table-bordered table-condensed table-striped">
+	<% @saat[index].each_with_index do |saat,indeks| %>		
+		<tr><th colspan="1">Saat <%= saat.Saat %> (<%= saat.Adet %>)</th></tr>
+	<% end %>
+	</table>
+<% end %>
+<% end %>
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	

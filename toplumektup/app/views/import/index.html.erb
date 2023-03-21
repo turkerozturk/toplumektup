@@ -1,0 +1,15 @@
+
+
+        
+
+
+
+<% form_tag(import_wizpage2_path, :method => "post") do %>
+<% @group_id %>
+<%= select_tag :group_id, options_from_collection_for_select(Group.all, :id, :name, @group_id), { :multiple => false, :size =>1 } %>
+<%= text_area_tag(:rawusers, "Hi, nice site", :size => "24x6", :class => "mceNoEditor") %>
+
+<%= submit_tag("Search") %>
+
+
+<% end %>

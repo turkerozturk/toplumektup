@@ -1,0 +1,16 @@
+<h1>Grup Düzenle</h1>
+<%= link_to '<i class="icon-list"></i> Gruplara Dön'.html_safe, groups_path, :class => 'btn' %>
+
+<%= render 'form' %>
+
+
+
+<%= content_for :sag_taraf do %>
+
+
+<p>Grubun adını ve açıklamasını değiştirebilirsiniz.</p>
+<p>Gruba kişi eklemek için yukarıdaki kişilerden eklemek istediklerinizi seçip güncelle düğmesine basın.</p>
+<p>Gruptan kişi çıkarmak için aşağıdaki kişilerden çıkarmak istediklerinizi seçip güncelle düğmesine basın.</p>
+
+
+<% end %>

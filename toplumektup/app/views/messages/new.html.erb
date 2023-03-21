@@ -1,0 +1,37 @@
+<style>
+input.mesaj_konusu {
+    width:100%;
+
+}
+textarea.mesaj_basligi {
+    width: 100%;
+    height: 500px;
+}
+</style>
+
+<h1>Yeni Mesaj</h1>
+<%= link_to '<i class="icon-list"></i> Mesajlara Dön'.html_safe, messages_path, :class => 'btn' %>
+
+
+<%= render 'form' %>
+
+
+
+<%= content_for :sag_taraf do %>
+
+
+<p>Mesaj içeriğinde şu tanımlı değişken alanları kullanabilirsiniz:</p>
+<ul>
+<li>{isim}</li>
+<li>{soyad}</li>
+<li>{email}</li>
+<li>{simdi}</li>
+
+
+
+
+
+</ul>
+<p>Kümeli parantez içerisine yazılan bu özel değişken isimleri veritabanındaki bilgileri alıp gönderilecek olan kişiye göre hazırlar.</p>
+
+<% end %>

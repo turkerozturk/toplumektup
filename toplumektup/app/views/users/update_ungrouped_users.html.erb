@@ -1,0 +1,14 @@
+<h1><%= @group.name %> grubuna eklenen kişiler</h1>
+<%= link_to '<i class="icon-list"></i> Anasayfaya Dön'.html_safe, "/", :class => 'btn' %>
+<%= link_to '<i class="icon-list"></i> Gruplara Dön'.html_safe, groups_path, :class => 'btn' %>
+<%= link_to '<i class="icon-list"></i> Kullanıcılara Dön'.html_safe, users_path, :class => 'btn' %>
+
+
+<table class="table table-condensed table-striped table_bordered pretty">
+	<tr><th>Seç</th><th><%= sortable "name" %></th><th><%= sortable "surname" %></th><th><%= sortable "occupation" %></th><th><%= sortable "email" %></th><th><%= sortable "created_at" %></th></tr>
+	 <% @grouped_users.each do |user| %>
+
+	<tr><td><%= link_to '<i class="icon-search"></i>'.html_safe, user_path(user) %></td><td><%= user.name %></td><td><%= user.surname %></td><td><%= user.occupation %></td><td><%= user.email %></td><td><%= user.created_at.strftime("%d.%m.%Y") %></td></tr>
+
+	<% end %>
+</table>

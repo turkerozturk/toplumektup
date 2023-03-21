@@ -1,0 +1,13 @@
+<h1>Görev Çalıştırıldı</h1>
+<h3>Aşağıdaki emaillere mesaj gönderildi şu anki zaman aralığında.</h3>
+<% if @raporlanacaklar.count > 0 %>
+	<% @raporlanacaklar.each_with_index do |rapor, index| %>
+
+	<br /><%= rapor %> 
+
+	<% end %>
+<% else %>
+
+ <h1>Şu anki zaman aralığında kuyrukta gönderilmeyi bekleyen email bulunmamaktadır.</h1>
+
+<% end %>

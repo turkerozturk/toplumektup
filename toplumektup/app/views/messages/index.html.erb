@@ -1,0 +1,41 @@
+<h1>Mesajlar</h1>
+<%= link_to '<i class="icon-list"></i> Anasayfaya Dön'.html_safe, "main#index", :class => 'btn' %>
+<%= link_to '<i class="icon-envelope"></i> Yeni Mesaj Oluştur'.html_safe, new_message_path, :class => 'btn' %>
+<%= link_to '<i class="icon-list"></i> Kullanılmış Mesajlar'.html_safe, messages_path(request.parameters.merge({:arsiv => 1})), :class => 'btn' %>
+<%= link_to '<i class="icon-list"></i> Hazır Mesajlar'.html_safe, messages_path(request.parameters.merge({:arsiv => 0})), :class => 'btn' %>
+<%# http://stackoverflow.com/questions/3762430/rails-preserving-get-query-string-parameters-in-link-to %>
+
+<%# bilgi: başka bir icon seti http://maximals.ru/project/sprite/glyphicons/ http://maximals.ru/project/sprite/glyphicons/glyphicons-sprite.zip %>
+<%#bilgi: http://spritegen.website-performance.org/ CSS sprite generator %>
+<%# https://gist.github.com/vulcansmithy/3107421 Adding a Twitter Bootstrap glyph icon to Rails link_to command  %>
+
+<%# http://stackoverflow.com/questions/885414/a-concise-explanation-of-nil-v-empty-v-blank-in-ruby-on-rails %>
+<% if !@messages.blank? %>
+
+	<table class="table table-condensed table-striped table_bordered pretty">
+	<tr><th><i class="icon-search icon-white"></i></th><th><%= sortable "subject" %></th><th>Dosya Eki</th><th><%= sortable "created_at" %></th><th>Gönderildiği Tarih</th></tr>
+	 <% @messages.each do |message| %>
+
+	<tr><td><%= link_to '<i class="icon-search"></i>'.html_safe, message_path(message) %></td><td><%= message.subject %></td><td>n</td><td><%= message.created_at.strftime("%d.%m.%Y") %></td><td><%= message.sent_at %></td></tr>
+
+	<% end %>
+	</table>
+<% else %>	
+	<h3 class="alert alert-info">Şu an aktif mesaj bulunmamaktadır.</h3>	
+<% end %>
+
+<%= content_for :sag_taraf do %>
+
+<p>TODO: görünümü düzelt</p>
+<p>TODO: dosya eki varsa burada ataç görünsün, tıklayınca açılsın</p>
+<p>TODO: mesajları gönderilmişler ve gönderilmemişler olarak ayır</p>
+
+
+<% end %>
+
+
+
+
+
+
+

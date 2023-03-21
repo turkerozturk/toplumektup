@@ -1,0 +1,93 @@
+<% content_for :javascript_yertutucum do %>
+
+<% end %>
+
+<h1>Gruplar</h1>
+<%= link_to '<i class="icon-list"></i> Anasayfaya Dön'.html_safe, "main#index", :class => 'btn' %>
+<%= link_to '<i class="icon-briefcase"></i> Yeni Grup Oluştur'.html_safe, new_group_path, :class => 'btn' %>
+<%= link_to '<i class="icon-repeat"></i> Eksik evrak grubunu senkronize et'.html_safe, synch_eksik_evrak_group_path, :class => 'btn' %>
+
+ <%if !flash[:error].blank? %>
+    <div id="error_explanation">
+
+
+     <p id="error"><%= flash[:error] %></p>
+    </div>
+
+<% end %>
+<!--
+<div id="accordion-resizer" class="ui-widget-content">
+	<div id="akordiyon" class="akordiyon">
+-->
+
+<!--
+	<%# if @notmember.size > 0 %>
+
+		<h3 class="akordiyonitem">Hiçbir Gruba Üye Olmayanlar (<%#= @notmember.count %>) </h3>
+		<ul>
+		<%# @notmember.each do |user| %>
+		
+			<li><%#= link_to user.name , edit_user_path(user) %></li>
+		
+		<%# end %>
+		</ul>
+	
+	<%# end %>
+-->
+	
+	
+	
+<table class="table table-condensed table-striped table_bordered pretty">
+<tr><th><i class="icon-search icon-white"></i></th><th><%= sortable "name" %></th><th>Üye Sayısı</th><th>Açıklama</th></tr>
+<% if @notmember.size > 0 %>
+<tr><td><%= link_to '<i class="icon-search"></i>'.html_safe, show_and_manage_ungrouped_users_path %></td><td>Grupsuzlar</td><td><%= @notmember.count %></td><td>Hiçbir Gruba Üye Olmayanlar</td></tr>
+<% end %>
+
+
+
+ <% @groups.each do |group| %>
+
+<tr><td><%= link_to '<i class="icon-search"></i>'.html_safe, group_path(group) %></td><td><%= group.name %></td><td><%= group.users.count %></td><td><%= group.description %></td></tr>
+
+<% end %>
+</table>
+
+<%= content_for :sag_taraf do %>
+<h1>Yardım</h1>
+<h2>Grupların Listesi</h2>
+<p>TODO: görünümü düzelt</p>
+<h3>Grupsuzlar</h3>
+<p>Grupsuzlar kategorisi her zaman en üstte yeralır. Tüm kullanıcılar en az bir gruba aitse Grupsuzlar kategorisi görüntülenmez.</p>
+<p>Grupların yanındaki ikona tıklayarak kullanıcılarını görüntüleme ve düzenleme sayfasına geçiş yapılır.</p>
+
+<p>TODO: mesajları gönderilmişler ve gönderilmemişler olarak ayır</p>
+
+
+<% end %>	
+	
+	
+	
+	
+	
+<%# @groups.each do |group| %>
+
+
+
+
+    <!-- <h3 class="akordiyonitem"><%#= group.name %> (<%#= group.users.count %>) </h3> 
+	<ul>
+	<%# group.users.each do |user| %>
+	
+		<li><%#= user.name %></li>
+	
+	<%# end %>
+	
+	</ul>
+	-->
+<%# end %>
+
+<!--
+	</div>
+</div>
+-->
+<br />

@@ -1,0 +1,53 @@
+<h1>Mesaj</h1>
+<%= link_to '<i class="icon-list"></i> Mesajlara Dön'.html_safe, messages_path, :class => 'btn' %>
+<% if @message.used != true %>
+	<%= link_to '<i class="icon-edit"></i> Mesajı Düzenle'.html_safe, edit_message_path(@message), :class => 'btn' %>
+	<%= link_to '<i class="icon-trash"></i> Mesajı Sil'.html_safe, @message, :confirm => 'Mesaj Silinsin mi?', :method => :delete, :class => 'btn' %>
+<% else %>	
+	<%= link_to '<i class="icon-share"></i> Kopyasını Oluştur'.html_safe, duplicate_message_path(@message), :class => 'btn' %>
+<% end %>
+<%= link_to '<i class="icon-question-sign"></i> Kimlere Gitti/Gidecek?'.html_safe, show_recipients_path, :class => 'btn' %>
+
+
+<%# bulk mailing ile ilgili  https://support.google.com/mail/answer/81126 %>
+
+<p id="notice"><%= notice %><%#= flash[:notice] %></p>
+
+
+<div class="row">
+	<div class="span8 well">
+		<table class="table">
+			<tr><th>KONU:</th><td><h3><%= @message.subject %></h3></td></tr>
+			<tr><th>İÇERİK:</th><td><%= raw @message.body.html_safe %></td></tr>
+		</table>
+	</div>
+</div>
+
+<p>
+  <b>Açıklama:</b>
+  <%= @message.description %>
+</p>
+<!--
+<div class="row">
+	<div class="span8 well">
+		<h3>Yorumlar</h3>
+	</div>
+</div>
+-->
+
+
+
+
+
+  <%#= @message.locked %>
+
+
+  <%#= @message.used %>
+
+
+  <%#= @message.sent_at %>
+
+
+
+
+

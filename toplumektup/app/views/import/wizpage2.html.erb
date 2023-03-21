@@ -1,0 +1,20 @@
+<%#= debug(params)%>
+
+<h1><%#= Group.find(@group_id).name %></h1>
+
+<h3>TOPLUMEKTUPTA OLMAYAN KİŞİLER(email adreslerine göre)</h3>
+
+<div id="newusers">
+<% @newusers.each do |u| %>
+  <br /><%= u[:email] %>
+<% end %>
+
+</div>
+
+<h3>TOPLUMEKTUPTA OLAN KİŞİLER(email adreslerine göre)</h3>
+<div id="existingusers">
+<% @existingusers.each do |u| %>
+  <br /><%= u[:email] %>
+<% end %>
+
+</div>

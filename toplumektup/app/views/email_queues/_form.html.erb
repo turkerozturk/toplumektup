@@ -1,0 +1,55 @@
+<%= form_for(@email_queue) do |f| %>
+  <% if @email_queue.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@email_queue.errors.count, "error") %> prohibited this email_queue from being saved:</h2>
+
+      <ul>
+      <% @email_queue.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <div class="control-group">
+ 	<%= label_tag :task_id, "Görev", :class => "control-label" %>
+	<div class="controls">
+ 		<%= f.select :task_id, options_from_collection_for_select(Task.all, :id, :name), { :multiple => false, :size =>1 } %>
+	</div>
+	</div>  
+  
+    <div class="control-group">
+ 	<%= label_tag :user_id, "Kişi", :class => "control-label" %>
+	<div class="controls">
+ 		<%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email), { :multiple => false, :size =>1 } %>
+	</div>
+	</div> 
+
+    <div class="control-group">
+ 	<%= label_tag :group_id, "Grup", :class => "control-label" %>
+	<div class="controls">
+ 		<%= f.select :group_id, options_from_collection_for_select(Group.all, :id, :name), { :multiple => false, :size =>1 } %>
+	</div>
+	</div>  
+  
+    <div class="control-group">
+ 	<%= label_tag :message_id, "Mesaj", :class => "control-label" %>
+	<div class="controls">
+ 		<%= f.select :message_id, options_from_collection_for_select(Message.all, :id, :subject), { :multiple => false, :size =>1 } %>
+	</div>
+	</div> 
+	
+
+  <div class="field">
+    <%= f.label :scheduled_at %><br />
+    <%= f.datetime_select :scheduled_at %>
+  </div>
+  <div class="field">
+    <%= f.label :sent %><br />
+    <%= f.check_box :sent %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

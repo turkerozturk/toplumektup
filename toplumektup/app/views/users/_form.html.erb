@@ -1,0 +1,76 @@
+<%#= f.label :photo %><%#= f.text_field :photo %>
+
+<%= form_for(@user, :html => {:multipart => true}) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> kayıt yapılmasını engelledi:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	
+<table border="1">
+<tr><td><%= f.label :name, "İsim" %></td><td><%= f.text_field :name %></td></tr>
+<tr><td><%= f.label :surname, "Soyad" %></td><td><%= f.text_field :surname %></td></tr>
+<tr><td><%= f.label :email, "Email" %></td><td><%= f.text_field :email %></td></tr>
+<tr><td><%= f.label :occupation, "Kurum veya Meslek" %></td><td><%= f.text_field :occupation %></td></tr>
+<tr><td><%= f.label :description, "Diğer bilgiler" %></td><td><%= f.text_area :description, :size => "20x5" %></td></tr>
+<tr><td><%= f.label :blocked, "Devredışı ?" %></td><td><%= f.check_box :blocked %></td></tr>
+<tr><td></td><td><%= f.submit "Kaydet" %></td></tr>
+</table>
+
+<hr />
+<h2>Grup Üyelikleri</h2>
+<table border="1">
+<tr><td><%= label_tag :group, "Üye olmadığı gruplar", :class => "control-label" %></td><td><%= select_tag :group, options_from_collection_for_select(Group.all - @user.groups, :id, :name, @group), { :multiple => true, :size =>10 } %></td></tr>		 
+	<tr><td><%= label_tag :groupn, "Üye olduğu gruplar", :class => "control-label" %></td><td><%= select_tag :groupn, options_from_collection_for_select(@user.groups, :id, :name), { :multiple => true, :size =>10 } %></td></tr>
+</table>
+	
+	
+<hr />
+<h2>Dernek Üyesi İse</h2>
+<table border="1">
+<tr><td><%= f.label :username, "Kullanıcı Adı" %></td><td><%= f.text_field :username %></td></tr>
+<tr><td><%= f.label :password, "Şifre" %></td><td><%= f.text_field :password %></td></tr>
+<tr><td><%= f.label :phone, "Telefon" %></td><td><%= f.text_field :phone %></td></tr>
+<tr><td><%= f.label :address, "Adres" %></td><td><%= f.text_field :address %></td></tr>
+<tr><td></td><td>
+					
+					<!-- http://stackoverflow.com/questions/10887893/twitter-bootstrap-checkbox-columns-columns-within-form -->	
+					<p>
+					<div class="control-groupX">
+					
+					<div class="controlsX">
+					
+					<table class="wellX">
+					<tr><td></td><td>Üyelik Evraklarının Durumu</td></tr>
+					<tr><td><%= f.check_box :member %></td><td><%= f.label :member, "Derneğe Üye mi?" , :class => "checkbox inline" %></td></tr>
+					<tr><td><%= f.check_box :vesikalik_fotograf %></td><td><%= f.label :vesikalik_fotograf, :class => "checkbox inline" %></td></tr>					
+					<tr><td><%= f.check_box :diploma_fotokopisi %></td><td><%= f.label :diploma_fotokopisi, :class => "checkbox inline" %></td></tr>
+					<tr><td><%= f.check_box :nufus_kagidi_fotokopisi %></td><td><%= f.label :nufus_kagidi_fotokopisi, :class => "checkbox inline" %></td></tr>
+					<tr><td><%= f.check_box :giris_formu %></td><td><%= f.label :giris_formu, :class => "checkbox inline" %></td></tr>
+					<tr><td><%= f.check_box :giris_banka_dekontu %></td><td><%= f.label :giris_banka_dekontu, :class => "checkbox inline" %></td></tr>
+					<tr><td><%= f.check_box :aidat_2012 %></td><td><%= f.label :aidat_2012, :class => "checkbox inline" %></td></tr>
+					<tr><td><%= f.check_box :aidat_2013 %></td><td><%= f.label :aidat_2013, :class => "checkbox inline" %></td></tr>
+					</table>
+					</div>
+					</div>
+					</p>
+					<!-- http://stackoverflow.com/questions/12488051/rails-how-to-keep-checkbox-and-label-on-same-line -->
+</td></tr>
+	<tr><td>Fotoğraf</td><td><%= file_field_tag 'picture', :accept => 'image/png,image/gif,image/jpeg' %></td></tr>  
+	
+	
+</table> 
+    
+
+    
+<% end %>
+
+
+		<%#= select_tag :group, options_from_collection_for_select(Group.all - @user.groups, :id, :name, ["1","2"]), { :multiple => true, :size =>10 } %>

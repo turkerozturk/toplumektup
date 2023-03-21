@@ -1,0 +1,27 @@
+<h1>Hiçbir Gruba Üye Olmayan Kullanıcılar</h1>
+<%= link_to '<i class="icon-list"></i> Anasayfaya Dön'.html_safe, "/", :class => 'btn' %>
+<%= link_to '<i class="icon-list"></i> Gruplara Dön'.html_safe, groups_path, :class => 'btn' %>
+<%= link_to '<i class="icon-list"></i> Kullanıcılara Dön'.html_safe, users_path, :class => 'btn' %>
+
+<br />
+<%#= form_tag update_ungrouped_users_path , :method => :put do %>
+<%= form_tag update_ungrouped_users_path  do %>
+
+        Aşağıdan kişileri seçip <%= select_tag :group, options_from_collection_for_select(@groups, :id, :name), { :multiple => false, :size =>1 } %> <%= submit_tag "Grubuna Ekle" %>
+	<br />
+	<table class="table table-condensed table-striped table_bordered pretty">
+	<tr><th><%= sortable "id" %></th><th><%= sortable "name" %></th><th><%= sortable "surname" %></th><th><%= sortable "occupation" %></th><th><%= sortable "email" %></th><th><%= sortable "created_at" %></th></tr>
+	 <% @ungrouped_users.each do |user| %>
+
+	<tr><td><%= check_box_tag('selectedusers[]', user.id) %></td><td><%= user.name %></td><td><%= user.surname %></td><td><%= user.occupation %></td><td><%= user.email %></td><td><%= user.created_at.strftime("%d.%m.%Y") %></td></tr>
+
+	<% end %>
+	</table>
+
+
+<% end %>
+	 
+<%= content_for :sag_taraf do %>
+	<p>TODO: görünümü düzelt</p>
+	<p>Buradaki listeden birden fazla kullanıcıyı seçerek tek defada belli bir gruba ekleyebilirsiniz.</p>
+<% end %>

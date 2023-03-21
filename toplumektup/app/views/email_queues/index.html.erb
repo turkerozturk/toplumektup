@@ -1,0 +1,39 @@
+<h1>Email Kuyruğu</h1>
+<%= link_to '<i class="icon-list"></i> Anasayfaya Dön'.html_safe, "/", :class => 'btn' %>
+<%#= link_to '<i class="icon-time"></i> Yeni Email Kuyruğu Oluştur'.html_safe, new_queue_path, :class => 'btn' %>
+
+<% if @email_queues.count != nil %>
+	<table class="table table-condensed table-striped table_bordered pretty">
+	<tr><th>Görev</th><th>Kişi</th><th>Grup</th><th>Mesaj</th><th>Zamanlama Tarihi</th><th>Gönderme Durumu</th></tr>
+	<% @email_queues.each do |queue| %>
+
+	<tr><td><%= link_to truncate(queue.task.name, :length => 20), task_path(queue.task) %></td><td><%= link_to truncate((queue.user.name + " " + queue.user.surname), :length => 20), user_path(queue.user) %></td><td><%= link_to truncate(queue.group.name, :length => 20), group_path(queue.group) %></td><td><%= link_to truncate(queue.message.subject, :length => 20), message_path(queue.message) %></td><td><%= queue.scheduled_at.strftime("%d.%m.%Y %H:%M:%S") %></td><td><%= queue.sent %></td></tr>
+
+	<% end %>
+	</table>
+<% else %>
+<h1>Kuyrukta Bekleyen Hiçbir Görev Bulunmamaktadır.</h1>
+<% end %>
+
+<%= content_for :sag_taraf do %>
+<p>EMAİL KUYRUĞU, sadece gönderilmemiş durumdaki tüm emailleri içerir. Tarihi geçmiş(1 saat) olan emailler kuyrukta varsa orada problem var demektir, programcı tarafından elle müdahele gerektirir. Görev oluştururken başlangıç tarihi belirlemek mümkün olduğundan, örneğin 10 gün sonrasına görev oluşturulduysa, kuyrukta ona ait emailler de görülecektir. Birbirine yakın saatlerde çok görev ve görevlerde çok email varsa, saatlik kotadan dolayı, saatlik kotayı aşmayacak şekilde görevlerin emailleri sonraki saatlere kaydırıldıdığından, kuyruktaki gönderme saatleri, görevlerin oluşturulma saatlerinden birkaç saat ilerisini gösterebilir. </p>
+<p>Görev hangi dakikada oluşturulursa oluşturulsun, kuyruktaki mailler o görevin oluşturulduğu saat aralığından itibaren dikkate alınırlar. Yani 14:55deki bir görevin maillerinden 14:00-15:00 arasına yerleştirilmiş olanları varsa, diğer 14:00-15:00 arasındaki daha önceden kalma mailler varsa bunların hepsi 14:00-15:00 arası mailler olarak işlem görürler. </p>
+<p>TODO: görünümü düzelt</p>
+
+<ul>
+<li>İstanbul'da şimdiki zamanın saat başı: <%= @saat_basi %> ve saat sonu: <%= @saat_sonu %></li>
+<li>Sunucu'da şimdiki zamanın saat başı: <%= @s_saat_basi %> ve saat sonu: <%= @s_saat_sonu %></li>
+<li>Mysql'de şimdiki zamanın saat başı: <%= @u_saat_basi %> ve saat sonu: <%= @u_saat_sonu %></li>
+<li>Mysql'de son kayıt tarihinin saat başı: <%= @son_saat_basi %> ve son saat sonu: <%= @son_saat_sonu %></li>
+<!-- 
+<li>Count within this hour <%#= @n %></li>
+<li>Count within last records hour in database <%#= @nl %></li>
+-->
+</ul>
+
+
+
+
+
+
+<% end %>

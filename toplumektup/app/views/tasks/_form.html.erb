@@ -1,0 +1,57 @@
+<%= form_for(@task) do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "İsim" %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  
+    <div class="control-group">
+ 	<%= label_tag :group_id, "Grup", :class => "control-label" %>
+	<div class="controls">
+	<%# http://stackoverflow.com/questions/4387009/partial-form-in-rails-3-needing-different-link-depending-on-new-or-edit %>
+	<% if f.object.new_record? %>
+	<% @grupsecim = "" %>
+	<% else %>
+	<% @grupsecim = @task.group.id %>
+	<% end %>
+ 		<%= f.select :group_id, options_from_collection_for_select(Group.all, :id, :name, @grupsecim), { :multiple => false, :size =>1 } %>
+	</div>
+	</div>  
+ 
+	<% if f.object.new_record? %>
+	<% @mesajsecim = "" %>
+	<% else %>
+	<% @mesajsecim = @task.message.id %>
+	<% end %> 
+    <div class="control-group">
+ 	<%= label_tag :message_id, "Mesaj", :class => "control-label" %>
+	<div class="controls">
+ 		<%= f.select :message_id, options_from_collection_for_select(@message, :id, :subject, @mesajsecim), { :multiple => false, :size =>1 } %>
+	</div>
+	</div>  
+	
+  <div class="form-group">
+    <%= f.label :scheduled_at, "Şu tarihten itibaren" %><br />
+    <%# http://stackoverflow.com/questions/14865670/smaller-size-of-f-date-select-boxes %>
+    <%= f.datetime_select :scheduled_at, :order => [:day, :month, :year], class: 'form-control', :start_year => Time.zone.now.year %>
+  </div>
+  
+    <%#= f.label :completed %><br />
+    <%#= f.check_box :completed %>
+
+  <div class="actions">
+    <%= f.submit "Kaydet" %>
+  </div>
+<% end %>

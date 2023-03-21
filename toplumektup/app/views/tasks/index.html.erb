@@ -1,0 +1,51 @@
+<h1>Görevler</h1>
+<%= link_to '<i class="icon-list"></i> Anasayfaya Dön'.html_safe, "/", :class => 'btn' %>
+<%= link_to '<i class="icon-time"></i> Yeni Görev Oluştur'.html_safe, new_task_path, :class => 'btn' %>
+<%= link_to '<i class="icon-repeat"></i> Kuyrukta Bekleyen Mailleri Şimdi Elle Gönder'.html_safe, execute_tasks_path, :class => 'btn' %>
+<%= link_to '<i class="icon-list"></i> Bitmiş Görevler'.html_safe, tasks_path(request.parameters.merge({:arsiv => 1})), :class => 'btn' %>
+<%= link_to '<i class="icon-list"></i> Güncel Görevler'.html_safe, tasks_path(request.parameters.merge({:arsiv => 0})), :class => 'btn' %>
+
+<%#= link_to '<i class="icon-list"></i> Görev Arşivi'.html_safe, tasks_path, request.parameters.merge({:arsiv => 1}), :class => 'btn' %>
+<%# http://stackoverflow.com/questions/3762430/rails-preserving-get-query-string-parameters-in-link-to %>
+
+<%# bilgi: başka bir icon seti http://maximals.ru/project/sprite/glyphicons/ http://maximals.ru/project/sprite/glyphicons/glyphicons-sprite.zip %>
+<%#bilgi: http://spritegen.website-performance.org/ CSS sprite generator %>
+<%# https://gist.github.com/vulcansmithy/3107421 Adding a Twitter Bootstrap glyph icon to Rails link_to command  %>
+
+ <%if !flash[:error].blank? %>
+    <div id="error_explanation">
+
+
+     <p id="error"><%= flash[:error] %></p>
+    </div>
+
+<% end %>
+
+<%# http://stackoverflow.com/questions/885414/a-concise-explanation-of-nil-v-empty-v-blank-in-ruby-on-rails %>
+<% if !@tasks.blank? %>
+	<table class="table table-condensed table-striped table_bordered pretty">
+	<tr><th><i class="icon-search icon-white"></i></th><th><%= sortable "name" %></th><th>Grup</th><th>Mesaj</th><th><%= sortable "scheduled_at" %></th><th><%= sortable "completed" %></th></tr>
+	 <% @tasks.each do |task| %>
+
+	<tr><td><%= link_to '<i class="icon-search"></i>'.html_safe, task_path(task) %></td><td><%= task.name %></td><td><%= link_to truncate(task.group.name, :length => 20), group_path(task.group) %></td><td><%= link_to truncate(task.message.subject, :length => 20), message_path(task.message) %></td><td><%= task.scheduled_at.strftime("%d.%m.%Y %H:%M:%S") %></td><td><%= task.completed ? 'Bitti' : 'Başlamadı/Bitmedi'%></td></tr>
+
+	<% end %>
+	</table>
+<% else %>	
+	<h3 class="alert alert-info">Şu an aktif görev bulunmamaktadır.</h3>
+	
+<% end %>
+
+<%= content_for :sag_taraf do %>
+
+<p>TODO: görünümü düzelt</p>
+<p>TODO: Sadece geçmiş son 30 günün ve gelecekteki görevler görünsün</p>
+<p>Göndericiyi çalıştır düğmesi görevlerin tümünün, sadece şu anki saatin başıyla sonu arasındaki zaman aralığında gönderilmemiş mailleri varsa ELLE göndermeye yarar. Yani bir sonraki saat için tekrar elle çalıştırmak gerekir. Bu işlemi normalde zamanlanmış görev yapacağı için kullanmaya gerek yok. Düğmeye birden fazla defa basılsa bile o saat aralığı için sadece bir kere gönderim yapar ve bir daha gönderme durumu gönderildi olduğu için göndermez.</p>
+
+<p>Eğer görevin completed durumu false ise, göreve ait tüm email gönderim durumlarını kontrol eder ve hepsinin sent durumu true ise görevin completed durumunu true yapar. Dolayısıyla tarihi eski olup da false kalmış görev varsa orada bir problem var demektir(Tarihi eski derken 1 gün falan, çünkü görevde 100 mailden fazla varsa ve başka görevler de varsa gönderme tarihleri birkaç saate yayılabilir ve görevin başlangıç tarihinden birkaç saat sonraya zamanlanmış olabilir).</p>
+
+<p>TEST modundayken sadece test için belirlenmiş olan gruptakilere mail gönderir, diğer gruplara mail gitmez sadece listeler bilgi amaçlı.</p>
+
+
+<% end %>
+

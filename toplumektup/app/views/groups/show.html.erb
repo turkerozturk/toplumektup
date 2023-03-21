@@ -1,0 +1,42 @@
+<%= link_to '<i class="icon-list"></i> Gruplara Dön'.html_safe, groups_path, :class => 'btn' %>
+<%= link_to '<i class="icon-edit"></i> Grubu Düzenle'.html_safe, edit_group_path(@group), :class => 'btn' %>
+<%= link_to '<i class="icon-trash"></i> Grubu Sil'.html_safe, @user, :confirm => 'Grup Silinsin mi?', :method => :delete, :class => 'btn' %>
+
+
+<!-- <%#= link_to '<i class="icon-edit"></i> Grubu Aktif/Pasif yap'.html_safe, edit_group_path(@user), :class => 'btn' %> -->
+
+
+<p id="notice"><%= notice %></p>
+
+
+
+<table class="table table-bordered table-striped">
+<tr><th>İsim</th><td><%= @group.name %></td></tr>
+<tr><th>Açıklama</th><td><%= @group.description %></td></tr>
+<tr><th>Üye Sayısı</th><td><%= @group.users.count %></td></tr>
+
+
+<% if @group.users.count > 0 %>
+	<tr><th>Üyeler</th><td> 
+	<% @group.users.order("name asc").each do |user| %>
+
+	<%= link_to user.display_name, user_path(user) %>
+	<br />
+	<% end %>
+<% end %>
+
+
+</td></tr>
+
+</table>
+
+
+
+
+
+<%= content_for :sag_taraf do %>
+<h2>Grup</h2>
+
+<p>Grubu düzenleyebilir, kişiler ekleyip çıkartabilirsiniz.</p>
+
+<% end %>

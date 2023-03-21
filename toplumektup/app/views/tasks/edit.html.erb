@@ -1,0 +1,15 @@
+<h1>Görevi Düzenle</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @task %> |
+<%= link_to 'Back', tasks_path %>
+
+
+<%= content_for :sag_taraf do %>
+
+
+<p>Karışıklık olmaması için buraya erişilemesin. Ayrıca gönderilmiş veya gönderilmeye devam eden bir task varsa çok dikkat edilmeli.</p>
+
+
+<% end %>

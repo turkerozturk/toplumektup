@@ -1,0 +1,83 @@
+
+<table class="table table-bordered">
+<%# resmi h1 içinde sola hizalamak için pull-left kullandım classında http://stackoverflow.com/questions/10790473/bootstrap-row-right-justified %>
+<tbody>
+
+<%#= render 'carousel' %>
+
+<tr>
+<td colspan="2">
+<%= image_tag "icons/48/mail-mark-task.png" %><%= link_to "Görevler", tasks_path, :class => 'btn'  %> (<%= @t %>) Bugüne ait işlenmiş ve işlenmeyi bekleyen tüm görevleri görün, düzenleyin.
+
+</td>
+</tr>
+
+
+
+<tr>
+
+<td colspan="2">
+<%= image_tag "icons/48/format-list-unordered.png" %><%= link_to "Kişiler", users_path, :class => 'btn'  %> (<%= @u %>) Tüm kişileri görün, arayın, filtreleyin, bir gruba ekleyin.
+
+</td>
+</tr>
+
+<td colspan="2">
+<%= image_tag "icons/48/format-list-unordered.png" %><%= link_to "Gruplar", groups_path, :class => 'btn'  %> (<%= @g %>) Tüm grupları ve üyelerini görün. Mesaj gönderebilmek için gruplar oluşturun.
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<%= image_tag "icons/48/format-list-unordered.png" %><%= link_to "Mesajlar", messages_path, :class => 'btn'  %> (<%= @m %>) Göndereceğiniz mesajların içeriklerini hazırlayın.
+
+</td>
+</tr>
+
+
+<tr>
+<td colspan="2">
+<%= image_tag "icons/48/format-list-unordered.png" %><%= link_to "Email Kuyruğu", email_queues_path, :class => 'btn'  %> (<%= @eq %>) Gönderilmeyi bekleyen email kuyruğunu görün.
+</td>
+</tr>
+<tr>
+
+<%#= render 'settingsview' %>
+
+</tr><tr align="center"><td colspan="2" rowspan="1">Version: 1.0.0 Standard Edition</td></tr>
+
+</tbody></table>
+
+
+
+<%= content_for :sag_taraf do %>
+
+
+<p>TOPLUMEKTUP programı özellikle paylaşımlı hostinglerdeki email kotasını dikkate alarak çeşitli gruplara ait üyelere duyuru yollamaya yarar.</p>
+<p>Anlaşılır ve nitelikli arayüzü sayesinde kullanıcıları, grupları, mesajları ve toplu mail görevlerini kolayca yönetebilirsiniz.</p>
+<p>NASIL KULLANILIR?<br />
+Görevler -> Yeni Görev -> Grup seç -> Mesaj seç -> Gönderme tarihi seç -> Kaydet.
+Zamanı geldiğinde gönderecektir.
+
+Bu işlem öncesinde Mesajlar bölümünde yeni mesaj oluşturun veya varolanlardan birini kopyala düğmesiyle çoğaltın.
+Gruplar oluşturabilir, istediğiniz gruba istediğiniz kişileri topluca ekleyebilirsiniz.
+Kişiler oluşturabilir gruplara ekleyebilirsiniz.
+Bir mesaj görev olarak eklendikten sonra başka görevde kullanılamaz, kopyasını oluşturarak kullanabilirsiniz.
+Email kuyruğunda şimdinin saat başıyla gelecek arasındaki gönderilmemiş tüm mailler görünür.
+Şimdiden 1 saat çöncesinden daha eski mailler varsa yazılımda problem var demektir o mailler elle gönderilmelidir.
+Göreve ait tüm mailler gönderildiğinde görevin durumu bitti olarak değişir ve bitmiş göreve müdahele dilemez.
+Bir görevi silindiğinde ona ait tüm gönderme işlemleri silinir.</p>
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+#encoding: UTF-8
+
+
+require "rubygems"
+require "active_record"
+
+ActiveRecord::Base.establish_connection (
+  :adapter => "mysql",
+  :host => "mysql.toplumektup.hostname.com",
+  :username => "usernamehere",
+  :password => "passwordhere",
+  :database => "toplumektup",
+  :encoding => "utf8"
+  )
+  
+class User < ActiveRecord::Base
+end
+
+sayac1, sayac2, sayac3 = 0,0,0
+File.open("import.txt", "r").each_line do |line|
+  
+  data = line.split(/\t/)
+  fullname = data[0]
+  kelimeler = fullname.split(" ").map(&:strip)
+  case kelimeler.size 
+    when 0
+     isim = 'Isim'
+     soyad = 'Soyad'
+    when 1
+     isim = kelimeler.first
+     soyad = "Soyad"
+    when 2
+     isim = kelimeler.first
+     soyad = kelimeler.last
+    else
+     isim = kelimeler.first(kelimeler.size - 1).join(' ')
+     soyad = kelimeler.last
+   end
+
+
+
+
+  email = data[1].strip
+  occupation = data[2]
+
+  u = User.find_by_email(email)
+  
+  if u.blank?
+    puts "YENI: #{email} ISIM: #{isim} SOYAD: #{soyad}"
+
+    yeni = User.create(:name => isim, :surname => soyad, :email => email, :occupation => 
+occupation, :blocked => 0, :photo => 'yok.jpg')
+    sayac2 += 1sayac2 += 1
+
+ 
+  else
+    puts "ESKI: #{u.email} I: #{u.name}(#{isim}) S: #{u.surname}(#{soyad})"
+  end
+
+end
+
+

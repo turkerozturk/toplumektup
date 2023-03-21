@@ -1,0 +1,54 @@
+<%= link_to '<i class="icon-list"></i> Kullanıcılara Dön'.html_safe, users_path, :class => 'btn' %>
+<%= link_to '<i class="icon-edit"></i> Kullanıcıyı Düzenle'.html_safe, edit_user_path(@user), :class => 'btn' %>
+<%= link_to '<i class="icon-trash"></i> Kullanıcıyı Sil'.html_safe, @user, :confirm => 'Kişi Silinsin mi?', :method => :delete, :class => 'btn' %>
+<%#= link_to '<i class="icon-edit"></i> Kullanıcıyı Aktif/Pasif yap'.html_safe, edit_user_path(@user), :class => 'btn' %>
+<%= link_to '<i class="icon-user"></i> Yeni Kullanıcı Oluştur'.html_safe, new_user_path, :class => 'btn' %>
+
+
+
+
+
+
+<table class="table table-bordered table-striped">
+<tr><th>Fotoğraf</th><td><%= image_tag @picture_url %></td></tr>
+<tr><th>İsim</th><td><%= @user.name %></td></tr>
+<tr><th>Soyad</th><td><%= @user.surname %></td></tr>
+<tr><th>Email</th><td><%= @user.email %></td></tr>
+<tr><th>Kurum veya Meslek</th><td><%= @user.occupation %></td></tr>
+<tr><th>Telefon</th><td><%= @user.phone %></td></tr>
+<tr><th>Adres</th><td><%= @user.address %></td></tr>
+<tr><th>Açıklamalar</th><td> <%= raw @user.description.to_s.html_safe %></td></tr>
+<% if @user.member? %>
+<tr><th>Eksik evrak var mı?</th><td> <%= @user.eksik_evrak_var_mi? ? "Var" : "Yok" %><br /><%= raw @user.eksik_evrak_listesi.join('<br /> ') %></td></tr>
+<% end %>
+
+<% if @user.groups.count > 0 %>
+<tr><th>Dahil Olduğu Gruplar</th><td>
+	
+	<% @user.groups.each do |group| %>
+
+	<%= link_to group.name, group_path(group) %>
+	<br />
+	<% end %>
+<% end %>
+
+
+
+</td></tr>
+
+</table>
+
+
+
+
+
+
+<%= content_for :sag_taraf do %>
+<p><b><%= image_tag @picture_url %></b></p>
+<p>TODO: görünümü düzelt, recipient imaj upload klasörünü düzelt</p>
+<p>Kullanıcı görünümü</p>
+<p>Kullanıcı bilgileri, kullanıcıya gönderilen mailler, kullanıcının ait olduğu gruplar, kullanıcının yetki tipi</p>
+
+
+<% end %>
+

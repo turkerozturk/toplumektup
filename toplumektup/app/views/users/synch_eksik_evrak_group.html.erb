@@ -1,0 +1,16 @@
+<h1>Eksik Evrakı olan Üyelerin Listesi</h1>
+<%#= raw @eksik_evraklilar.join('<br />') %>
+
+<% if @users.size > 0 %>
+<table class="table">
+		<% @users.each do |user| %>
+			<% if user.eksik_evrak_var_mi? %>
+			
+				<tr><td><%= link_to "#{user.display_name}", user_path(user) %></td><td><%= user.eksik_evrak_listesi.join(", ") %><td></tr>
+				
+			<% end %>
+		<% end %>
+</table>
+<% else %>
+		<%= "Tüm üyelerin evrakları tamamlandı." %>
+<% end %>

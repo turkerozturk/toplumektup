@@ -1,0 +1,12 @@
+<h1>Alıcılar</h1>
+<%= link_to '<i class="icon-envelope"></i> Mesaja Dön'.html_safe, @message, :class => 'btn' %>
+
+<table class="table table-bordered table-condensed table-striped">
+<tr><th style="text-align: center;"><span style="color:green;"><%= @message.subject %></span> <br />Mesajının Alıcıları (<%= @users.count %>)</th></tr>
+<% @users.each do |user| %>
+
+<tr><td><%= link_to "#{user.name} #{user.surname} (#{user.email})", user_path(user) %></td></tr>
+<%#= link_to "#{user.name} ", user_path(user) %>
+
+<% end %>
+</table>

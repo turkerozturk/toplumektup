@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Task:</b>
+  <%= @email_queue.task_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @email_queue.user_id %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%= @email_queue.group_id %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%= @email_queue.message_id %>
+</p>
+
+<p>
+  <b>Scheduled at:</b>
+  <%= @email_queue.scheduled_at %>
+</p>
+
+<p>
+  <b>Sent:</b>
+  <%= @email_queue.sent %>
+</p>
+
+
+<%= link_to 'Edit', edit_email_queue_path(@email_queue) %> |
+<%= link_to 'Back', email_queues_path %>

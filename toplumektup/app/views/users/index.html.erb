@@ -1,0 +1,35 @@
+<h1>Kullanıcılar</h1>
+<%= link_to '<i class="icon-list"></i> Anasayfaya Dön'.html_safe, "main#index", :class => 'btn' %>
+<%= link_to '<i class="icon-user"></i> Yeni Kullanıcı Oluştur'.html_safe, new_user_path, :class => 'btn' %>
+<%= link_to "<i class=\"icon-list\"></i> Pasif Kişiler (#{@pasif_kisi_sayisi})".html_safe, users_path(request.parameters.merge({:arsiv => 1})), :class => 'btn' %>
+<%= link_to "<i class=\"icon-list\"></i> Aktif Kişiler (#{@aktif_kisi_sayisi})".html_safe, users_path(request.parameters.merge({:arsiv => 0})), :class => 'btn' %>
+
+
+<%# http://railscasts.com/episodes/37-simple-search-form %>
+<%= form_tag users_path, :method => 'get' do %>
+
+      <%= text_field_tag :search, params[:search], :title => "İsim ve Soyad alanlarında arar."  %>
+      <%= submit_tag "Ara", :name => nil %>
+      <%= "(#{@bulunan_kisi_sayisi}) sonuç" %>
+<% end %>
+
+
+
+<table class="table table-condensed table-striped table_bordered pretty">
+<tr><th><i class="icon-search icon-white"></i></th><th><%= sortable "name", "İsim" %></th><th><%= sortable "surname", "Soyad" %></th><th><%= sortable "occupation", "Kurum veya Meslek" %></th><th><%= sortable "email", "Email Adresi" %></th><th><%= sortable "created_at", "Oluşturulma" %></th></tr>
+ <% @users.each do |user| %>
+
+<tr><td><%= link_to '<i class="icon-search"></i>'.html_safe, user_path(user) %></td><td><%= user.name %></td><td><%= user.surname %></td><td><%= truncate(user.occupation, :length => 20) %></td><td><span title="<%= user.email %>"><%= truncate(user.email, :length => 20) %></span></td><td><%= user.created_at.strftime("%d.%m.%Y") %></td></tr>
+
+<% end %>
+</table>
+
+<%= content_for :sag_taraf do %>
+
+<p>TODO: görünümü düzelt</p>
+<p>TODO: kullanıcıları aktif ve pasif olarak ayır. Burada sadece blocked = false olanlar görünüyor ve yazılımın diğer kısımlarında da eğer bir kullanıcı pasifleştirilmişse gruplarda yeralmasın ve mesaj kuyruğu işlenmesin gibi ayarlamalar olması gerekiyor!!!</p>
+
+
+<% end %>
+
+
